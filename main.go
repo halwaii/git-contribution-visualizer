@@ -8,7 +8,12 @@ import (
 )
 
 func main() {
-	fmt.Println("hello")
-	scan.Scan("C:\\Users\\HP\\OneDrive\\Desktop\\Magic")
+	fmt.Println("hello\n")
+	repos := scan.Scan("C:\\Users\\HP\\OneDrive\\Desktop\\Magic")
+
+	fmt.Println("repositories found : ")
+	for _, repo := range repos{
+		fmt.Println(repo)
+	}
 	stats.Stats()
 }
