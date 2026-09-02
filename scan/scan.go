@@ -33,7 +33,7 @@ func scan(path string, repos *[]string){
 
 		// we only need git repository
 		if entry.IsDir() && entry.Name()==".git"{
-			fmt.Println("git repository path found : ",path)
+			// fmt.Println("git repository path found : ",path)
 
 			// add paths to repos
 			// using pointer to use real slice
