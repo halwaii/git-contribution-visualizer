@@ -20,7 +20,7 @@ func Stats(repos []string) {
 	// 2) run the command and capture output
 		output, err := cmd.Output()
 		if err != nil{
-			fmt.Println("error reading repository : ",err)
+			// fmt.Println("error reading repository : ",err)
 			continue
 		}
 	
@@ -48,23 +48,43 @@ func Stats(repos []string) {
 	today := time.Now()
 
 	// start from 364 days ago
-	start := today.AddDate(0,0,-364)
+	start := today.AddDate(0,0,-210)
 
 	// move to previous sunday
 	// loop till sunday is found
 	for start.Weekday() != time.Sunday{
 		start = start.AddDate(0,0,-1)
 	}
+	fmt.Println()
+	fmt.Println("Git Contribution Graph")
+	fmt.Println("----------------------")
+	days := []string{"sun","mon","tue","wed","thu","fri","sat"}
 
+	// print month
+	fmt.Print("      ")
+	currMonth := time.Month(0)
+
+	for week:=0;week<=30;week++{
+		date:= start.AddDate(0,0,week*7)
+		month := date.Month()
+		if month != currMonth{
+			fmt.Printf("%-3s", date.Format("Jan"))
+			currMonth = month
+		} else {
+			fmt.Print("   ")
+		}
+	}
+	fmt.Println()
 	// make 7 rows sunday to saturday
 	for day:=0;day<7;day++{
+		fmt.Printf("%s ",days[day])
 		// make columns
-		for week:=0;week<=52;week++{
+		for week:=0;week<=30;week++{
 			// date calculation
 			date := start.AddDate(0,0,week*7+day)
 
 			if date.After(today){
-				fmt.Print(" ")
+				fmt.Print("  ")
 				continue
 			}
 			// convert date to string format
@@ -79,7 +99,7 @@ func Stats(repos []string) {
 			// print
 			if commits==0{
 				fmt.Print(color)
-				fmt.Print(" - ")
+				fmt.Print("- ")
 			} else {
 				fmt.Print(color)
 				fmt.Printf("%2d", commits)
@@ -87,6 +107,7 @@ func Stats(repos []string) {
 			fmt.Print("\033[0m")
 			fmt.Print(" ")
 		}
+		fmt.Println()
 	}
 	// old code
 
@@ -115,12 +136,13 @@ func getColor(commits int) string{
 		return "\033[48;5;236m" // gray
 	} else if commits <=2 {
 		return "\033[48;5;255m"
-	} else if commits <=5 {
+	} else if commits <=4 {
 		return "\033[48;5;220m"
-	}else if commits <=7 {
+	}else if commits <=5 {
+		return "\033[48;5;46m"
+	} else if commits <=7 {
 		return "\033[48;5;208m"
 	}
-
 	return "\033[48;5;196m"
 
 }
