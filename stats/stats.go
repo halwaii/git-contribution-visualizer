@@ -10,26 +10,17 @@ import (
 func Stats(repos []string) {
 
 	// initialize map
-	// contribution contains date -> number of commits
 	contributions := make(map[string]int)
 	for _, repo := range repos{
 	// 1) define command and its arguments
-	// git log --format=%ad --date=short
 		cmd := exec.Command("git","-C",repo,"log","--format=%ad","--date=short")
 
 	// 2) run the command and capture output
 		output, err := cmd.Output()
 		if err != nil{
-			// fmt.Println("error reading repository : ",err)
+			fmt.Println("error reading repository : ",err)
 			continue
 		}
-	
-	// what does split does ?
-	// string(output) = "2026-8-8
-	// 					 2026-4-6
-	// 					 2026-8-3"
-	// split where "\n" present 
-	// dates = {"2026-8-8","2026-4-6","2026-8-3"}
 
 		dates := strings.Split(string(output),"\n")
 
@@ -40,18 +31,12 @@ func Stats(repos []string) {
 			// date -> key , commits -> values
 			contributions[date]++
 		}
-		// 3) print output string
-		// fmt.Println("repository : ", repo)
-		// fmt.Println(string(output))
 	}
 
 	today := time.Now()
 
-	// start from 364 days ago
 	start := today.AddDate(0,0,-210)
 
-	// move to previous sunday
-	// loop till sunday is found
 	for start.Weekday() != time.Sunday{
 		start = start.AddDate(0,0,-1)
 	}
@@ -109,25 +94,6 @@ func Stats(repos []string) {
 		}
 		fmt.Println()
 	}
-	// old code
-
-	// today := time.Now()
-
-	// // check for commits in last 365 days
-	// for i:=0;i<365;i++{
-	// 	// 1) AddDate(year, month, day) => (0,0,-1) -> yesterday
-	// 	date := today.AddDate(0,0,-i)
-
-	// 	// 2) convert date to string format
-	// 	// what happened on this day ?
-	// 	dateStr := date.Format("2006-01-02")
-
-	// 	// 3) check for number of commits on that particular day
-	// 	commits := contributions[dateStr]
-		
-	// 	fmt.Println(dateStr, commits)
-	// }
-	// // fmt.Println(contributions)
 }
 
 // helper function to get background color for each day
