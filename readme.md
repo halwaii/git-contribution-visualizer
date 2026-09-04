@@ -10,6 +10,11 @@ A simple command-line interface (CLI) tool written in Go that scans your local d
 
 ## 🛠️ Installation
 
+### Method 0: for anyone, just run this command in your git bash :)
+```bash
+curl -fsSL https://raw.githubusercontent.com/halwaii/git-contribution-visualizer/main/run.sh | bash -s -- "."
+```
+
 ### Method 1: For Go Developers (Recommended)
 If you have Go installed on your system, you can easily install the tool globally:
 
