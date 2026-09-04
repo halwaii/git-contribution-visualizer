@@ -19,7 +19,7 @@ curl -fsSL https://raw.githubusercontent.com/halwaii/git-contribution-visualizer
 If you have Go installed on your system, you can easily install the tool globally:
 
 ```bash
-go install github.com/halwaii/git-contribution-visualizer
+go install github.com/halwaii/git-contribution-visualizer@latest
 ```
 
 ### Method 2: For Non-Go Users (Pre-built Binaries)
