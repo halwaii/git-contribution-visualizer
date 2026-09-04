@@ -84,13 +84,13 @@ func Stats(repos []string) {
 			// print
 			if commits==0{
 				fmt.Print(color)
-				fmt.Print("- ")
+				fmt.Print(" - ")
 			} else {
 				fmt.Print(color)
-				fmt.Printf("%2d", commits)
+				fmt.Printf("%3d", commits)
 			}
 			fmt.Print("\033[0m")
-			fmt.Print(" ")
+			fmt.Print("")
 		}
 		fmt.Println()
 	}
